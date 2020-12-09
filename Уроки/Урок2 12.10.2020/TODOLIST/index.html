@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: cornflowerblue;
+        }
+
+        .todo-list {
+            width: 500px;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            margin: auto;
+            margin-top: 60px;
+        }
+
+        .todo-list .todo-item {
+            border: 1px solid gray;
+            background-color: white;
+            padding: 10px 20px;
+            margin: auto;
+            margin-bottom: 10px;
+            border-top-right-radius: 36px;
+            border-bottom-right-radius: 36px;
+        }
+
+        .todo-list > ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .todo-list .todo-item input[type="checkbox"] {
+            display: none;
+        }
+
+        .todo-list .todo-item input[type="checkbox"] + label {
+            display: block;
+            width: 20px;
+            height: 20px;
+            float: right;
+            border: 2px solid gray;
+            position: relative;
+        }
+
+        .todo-list .todo-item input[type="checkbox"]:checked + label::after {
+            content:"";
+            display: block;
+            background: lightseagreen;
+            margin: 2px;
+            position: absolute;
+            width: 16px;
+            height: 16px;
+        }
+
+        .todo-list .todo-item input[type="checkbox"] + label,
+        .todo-list .todo-item input[type="checkbox"]:checked + label::after {
+            border-radius: 50%;
+        }
+
+        .todo-item.todo-item-important {
+            border-left: 6px solid red;
+        }
+
+        .todo-item.todo-item-asap {
+            border-left: 6px solid yellow;
+        }
+
+        .todo-item.todo-item-trash {
+            border-left: 6px solid cyan;        }
+
+    </style>
+</head>
+<body>
+    <div class="todo-list">
+        <h1>Список дел</h1>
+        
+        <ul>
+            <li class="todo-item todo-item-important">
+                <h2>
+                    Помыть посуду
+                    <input id="todo-item-1" type="checkbox"/>
+                    <label for="todo-item-1"></label>
+                </h2>
+                   
+    
+                <p>
+                    Помыть посуду пока мамка не вернулась
+                    с работы и не дала пизды
+                </p>
+            </li>   
+            <li class="todo-item todo-item-asap">
+                <h2>
+                    Погулять с собакой
+                    <input id="todo-item-2" type="checkbox"/>
+                    <label for="todo-item-2"></label>
+                </h2>
+                        <p>
+                    Не менее одного часа
+                </p>
+            </li>   
+            <li class="todo-item todo-item-trash">
+                <h2>
+                    Приготовить покушать
+                    <input id="todo-item-3" type="checkbox"/>
+                    <label for="todo-item-3"></label>
+                </h2>
+    
+                <p>
+                    Список еды
+                </p>
+            </li>   
+            
+        </ul>
+    </div>
+</body>
+</html>
