@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="styles/style.css" rel="stylesheet" type="text/css" />
+  <title>Сайт хороших новостей</title>
+  <script>
+    let dataRepo = {
+      getItem: () => {
+        let string = localStorage.getItem('short-news')
+        return JSON.parse(string)
+      },
+
+      setItem: (value) => {
+        let json = JSON.stringify(value)
+        localStorage.setItem('short-news', json)
+      },
+
+      delete: (news) => { },
+
+      update: (news) => {
+        let recentNews = dataRepo.getAllNews().map((el) => {
+          if (el.id == news.id) {
+            return news
+          } else {
+            return el
+          }
+        })
+
+        dataRepo.setItem('short-news')
+      },
+      create: (news) => { },
+      getAllNews: () => {
+        return dataRepo.getItem('short-news')
+      }
+    }
+
+    var newsItemTemplate =
+      '<li>' +
+      '<a class="short-news" href="bears.html">' +
+      '<h2>{title}</h2>' +
+      '<p>{description</p>' +
+      '</a>' +
+      '</li>';
+
+    function init() {
+      console.log("Иницализация - успешно")
+
+      loadSampleData()
+      render()
+    }
+
+    function updateNewsAttributeById(id, attribute, value) {
+      let findedNews = dataRepo.getAllNews().filter((el) => {
+      })[0]
+      findedCard[attribute] = value
+      dataRepo.update(findedNews)
+    }
+
+    function bindUserInputEvents() {
+      let elements = document.querySelectorAll('input');
+      console.log(elements)
+      elements.forEach((el) => {
+        el.addEventListener('change', (event) => {
+          updateNewsAttributeById(el.getAttribute)("data-id")
+        })
+      });
+    }
+
+    function loadSampleData() {
+      if (dataRepo.getItem("short-news") != null) {
+        return
+      }
+      dataRepo.setItem([
+        {
+          id: 1,
+          title: "В новосибирском зоопарке родился медвежонок",
+          description: "У престарелой пары белых медведей пополнение - фотки внутри"
+        },
+        {
+          id: 2,
+          title: "Путин сделал Навального президентом",
+          description: "Путин принёс извинения за отравление в необычной форме"
+
+        },
+        {
+          id: 1,
+          title: "Я купил кофе и молоко, чтобы пить кофе с молоком",
+          description: "Кременкульское печенье отлично заходит с этим божественным напитком"
+        }
+      ])
+    }
+
+    function render() {
+      var html = "";
+      let news = dataRepo.getAllNews()
+      console.log(news);
+
+      for (var i = 0; i < news.length; i++) {
+        html += fillNewsTemplateWIthCardObject(news[i]);
+      }
+
+      let element = window.document.getElementsByClassName("short-news")[0];
+      element.innerHTML = html
+
+      bindUserInputEvents()
+    }
+
+    function fillNewsTemplateWIthCardObject(news) {
+      return newsItemTemplate
+        .replaceAll('{title}', news.title)
+        .replaceAll('{item-id}', news.id)
+        .replaceAll('{description', news.description)
+    }
+
+    window.onload = (event) => {
+      init();
+    };
+  </script>
+</head>
+
+<body>
+  <div class="main-page-logo">
+    <a class="home-button" href="index.html"><img class="logo-image" src="img/logo.jpg" alt="logo" />#ONLYGOODNEWS</h1>
+    </a>
+  </div>
+  <div>
+    <h2 class="motto-top">Все хорошие новости — в одном месте</h2>
+  </div>
+  <ul class="short-news">
+  </ul>
+  <h2 class="quote">#ONLYGOODNEWS makes your day perfect</h2>
+  <footer class="motto-bottom">since MMXX <br> All Rights Reserved.</footer>
+</body>
+
+</html>

@@ -7,13 +7,8 @@
     <title>Таблица умножения на JS</title>
     <script>
         function init() {
-            console.log(" Инициализация - успешно\n",
-                "Система жизнеобеспечения - в норме\n",
-                "Двигатели - в норме\n",
-                "Спасательные капсулы - на месте\n",
-                "Добро пожаловать, Джейк\n",
-            )
-        };
+            console.log(" Инициализация - успешно")
+        }
 
         window.onload = (event) => {
             init();
@@ -29,13 +24,11 @@
         var result = [];
 
         for (var w = 1; w <= sheetWidth; w++) {
-            if (typeof result[w] == "undefined") {
-                result[w] = [];
-            }
+            result[w] = [];
+        }
 
-            for (var h = 1; h <= sheetHeight; h++) {
-                result[w][h] = w * h;
-            }
+        for (var h = 1; h <= sheetHeight; h++) {
+            result[w][h] = w * h;
         }
 
         let array = []
