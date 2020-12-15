@@ -39,9 +39,9 @@
 
     var newsItemTemplate =
       '<li>' +
-      '<a class="short-news" href="bears.html">' +
+      '<a class="short-news" href={url}>' +
       '<h2>{title}</h2>' +
-      '<p>{description</p>' +
+      '<p>{description}</p>' +
       '</a>' +
       '</li>';
 
@@ -77,19 +77,27 @@
         {
           id: 1,
           title: "В новосибирском зоопарке родился медвежонок",
-          description: "У престарелой пары белых медведей пополнение - фотки внутри"
+          description: "У престарелой пары белых медведей пополнение - фотки внутри",
+          url: "bears.html"
         },
         {
           id: 2,
           title: "Путин сделал Навального президентом",
-          description: "Путин принёс извинения за отравление в необычной форме"
-
+          description: "Путин принёс извинения за отравление в необычной форме",
+          url: "navalny.html"
         },
         {
-          id: 1,
+          id: 3,
           title: "Я купил кофе и молоко, чтобы пить кофе с молоком",
-          description: "Кременкульское печенье отлично заходит с этим божественным напитком"
-        }
+          description: "Кременкульское печенье отлично заходит с этим божественным напитком",
+          url: "coffee.html"
+        },
+        {
+          id: 4,
+          title: "FILLER FILLER FILLER FILLER FILLER FILLER",
+          description: "FISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISH",
+          url: "https://theuselessweb.site/youareanidiot/idiot/index.html"
+        },
       ])
     }
 
@@ -112,7 +120,8 @@
       return newsItemTemplate
         .replaceAll('{title}', news.title)
         .replaceAll('{item-id}', news.id)
-        .replaceAll('{description', news.description)
+        .replaceAll('{description}', news.description)
+        .replaceAll('{url}', news.url)
     }
 
     window.onload = (event) => {
@@ -123,7 +132,8 @@
 
 <body>
   <div class="main-page-logo">
-    <a class="home-button" href="index.html"><img class="logo-image" src="img/logo.jpg" alt="logo" />#ONLYGOODNEWS</h1>
+    <a class="home-button" href="index.html"><img class="logo-image" src="img/logo-transparent.png"
+        alt="logo" />#ONLYGOODNEWS</h1>
     </a>
   </div>
   <div>

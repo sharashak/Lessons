@@ -34,6 +34,10 @@
       padding-left: 16px;
     }
 
+    .logo-image {
+      padding-right: 10px;
+    }
+
     .main-page-logo .logo-image {
       margin-top: -3px;
       float: left;
@@ -87,5 +91,4 @@
       text-shadow: 1px 1px 2px orangered, 0 0 0.5em orangered;
       color: darkviolet;
       font-weight: bolder;
-      background-color: snow;
     }
