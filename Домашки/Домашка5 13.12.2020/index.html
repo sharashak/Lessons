@@ -10,33 +10,33 @@
     let dataRepo = {
       getItem: () => {
         let string = localStorage.getItem('short-news')
-        return JSON.parse(string)
+        return JSON.parse(string) //Считывает строку в локальном хранилище для преобразования в массив, получает информацию из ЛС
       },
 
       setItem: (value) => {
-        let json = JSON.stringify(value)
+        let json = JSON.stringify(value) //Преобразовывает массив в строку в локальном хранилище, помещает карточки в ЛС
         localStorage.setItem('short-news', json)
       },
 
-      delete: (news) => { },
+      delete: (article) => { },
 
-      update: (news) => {
+      update: (article) => {
         let recentNews = dataRepo.getAllNews().map((el) => {
-          if (el.id == news.id) {
-            return news
+          if (el.id == article.id) {
+            return article
           } else {
             return el
           }
         })
-
         dataRepo.setItem('short-news')
       },
-      create: (news) => { },
+
+      create: (article) => { },
       getAllNews: () => {
         return dataRepo.getItem('short-news')
       }
     }
-
+    //Определяем шаблон - в нашем случае это элемент списка с ссылкой, названием, описанием
     var newsItemTemplate =
       '<li>' +
       '<a class="short-news" href={url}>' +
@@ -45,6 +45,7 @@
       '</a>' +
       '</li>';
 
+    //Уже знакомая нам функция инициализации, запускающая загрузку информации для шаблона, и выводящая всё на экран через функцию render()
     function init() {
       console.log("Иницализация - успешно")
 
@@ -54,6 +55,7 @@
 
     function updateNewsAttributeById(id, attribute, value) {
       let findedNews = dataRepo.getAllNews().filter((el) => {
+        return el.id == id
       })[0]
       findedCard[attribute] = value
       dataRepo.update(findedNews)
@@ -69,6 +71,7 @@
       });
     }
 
+    //Заполняем локальное хранилище информацией о наших объектах
     function loadSampleData() {
       if (dataRepo.getItem("short-news") != null) {
         return
@@ -92,38 +95,35 @@
           description: "Кременкульское печенье отлично заходит с этим божественным напитком",
           url: "coffee.html"
         },
-        {
-          id: 4,
-          title: "FILLER FILLER FILLER FILLER FILLER FILLER",
-          description: "FISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISHFISH",
-          url: "https://theuselessweb.site/youareanidiot/idiot/index.html"
-        },
       ])
     }
 
+    //Отображаем карточки
     function render() {
       var html = "";
-      let news = dataRepo.getAllNews()
-      console.log(news);
-
-      for (var i = 0; i < news.length; i++) {
-        html += fillNewsTemplateWIthCardObject(news[i]);
+      let article = dataRepo.getAllNews()
+      console.log(article);
+      //Заполняем наш HTML объектами из локального хранилища
+      for (var i = 0; i < article.length; i++) {
+        html += fillNewsTemplateWIthCardObject(article[i]);
       }
-
+      //Возвращает массив всех элементов, относящихся к нашему классу .short-news
       let element = window.document.getElementsByClassName("short-news")[0];
       element.innerHTML = html
 
+      //Как только элементы готовы, биндимся на них
       bindUserInputEvents()
     }
 
-    function fillNewsTemplateWIthCardObject(news) {
+    //Заполняем шаблон и возвращаем его. Замена происходит поэтапно
+    function fillNewsTemplateWIthCardObject(article) {
       return newsItemTemplate
-        .replaceAll('{title}', news.title)
-        .replaceAll('{item-id}', news.id)
-        .replaceAll('{description}', news.description)
-        .replaceAll('{url}', news.url)
+        .replaceAll('{title}', article.title)
+        .replaceAll('{item-id}', article.id)
+        .replaceAll('{description}', article.description)
+        .replaceAll('{url}', article.url)
     }
-
+    //Страница загружена, вызываем всё, что нам нужно
     window.onload = (event) => {
       init();
     };
@@ -132,8 +132,7 @@
 
 <body>
   <div class="main-page-logo">
-    <a class="home-button" href="index.html"><img class="logo-image" src="img/logo-transparent.png"
-        alt="logo" />#ONLYGOODNEWS</h1>
+    <a class="home-button" href="index.html"><img class="logo-image" src="img/logo.jpg" alt="logo" />#ONLYGOODNEWS</h1>
     </a>
   </div>
   <div>
