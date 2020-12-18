@@ -7,7 +7,7 @@
   <link href="styles/style.css" rel="stylesheet" type="text/css" />
   <title>Сайт хороших новостей</title>
   <script>
-    let dataRepo = {
+    let dataRepo = { //Заведение объекта, в котором находятся все карточки с данными хранящихся новостей, и его свойств, которые этот объект имеет.
       getItem: () => {
         let string = localStorage.getItem('short-news')
         return JSON.parse(string) //Считывает строку в локальном хранилище для преобразования в массив, получает информацию из ЛС
@@ -20,22 +20,13 @@
 
       delete: (article) => { },
 
-      update: (article) => {
-        let recentNews = dataRepo.getAllNews().map((el) => {
-          if (el.id == article.id) {
-            return article
-          } else {
-            return el
-          }
-        })
-        dataRepo.setItem('short-news')
-      },
-
       create: (article) => { },
+
       getAllNews: () => {
         return dataRepo.getItem('short-news')
       }
     }
+
     //Определяем шаблон - в нашем случае это элемент списка с ссылкой, названием, описанием
     var newsItemTemplate =
       '<li>' +
@@ -47,22 +38,13 @@
 
     //Уже знакомая нам функция инициализации, запускающая загрузку информации для шаблона, и выводящая всё на экран через функцию render()
     function init() {
-      console.log("Иницализация - успешно")
-
-      loadSampleData()
-      render()
-    }
-
-    function updateNewsAttributeById(id, attribute, value) {
-      let findedNews = dataRepo.getAllNews().filter((el) => {
-        return el.id == id
-      })[0]
-      findedCard[attribute] = value
-      dataRepo.update(findedNews)
+      console.log("Инициализация - успешно") //Выводит сообщение в консоль, тем самым показывая, что страница загрузилась
+      loadSampleData() //Функция, заполняющая массив карточками
+      render() //Функция отображения содержимого наших карточек в документе HTML
     }
 
     function bindUserInputEvents() {
-      let elements = document.querySelectorAll('input');
+      let elements = document.querySelectorAll('data-id');
       console.log(elements)
       elements.forEach((el) => {
         el.addEventListener('change', (event) => {
@@ -71,12 +53,12 @@
       });
     }
 
-    //Заполняем локальное хранилище информацией о наших объектах
-    function loadSampleData() {
-      if (dataRepo.getItem("short-news") != null) {
+    //Заполняем наш репозиторий информацией о наших объектах
+    function loadSampleData() { //Функция заполнения репозитория
+      if (dataRepo.getItem("short-news") != null) { //Если репозиторий заполнен, вернуть значение, если пуст - пройти к выполнению setItem
         return
       }
-      dataRepo.setItem([
+      dataRepo.setItem([ //Помещаем массив в наш репозиторий
         {
           id: 1,
           title: "В новосибирском зоопарке родился медвежонок",
@@ -98,19 +80,18 @@
       ])
     }
 
-    //Отображаем карточки
+    //Функция выводящая на экран информацию из карточек
     function render() {
-      var html = "";
-      let article = dataRepo.getAllNews()
-      console.log(article);
+      var html = ""; //Заводим переменную HTML, она пока пустая
+      let articles = dataRepo.getAllNews()
+      console.log(articles);
       //Заполняем наш HTML объектами из локального хранилища
-      for (var i = 0; i < article.length; i++) {
-        html += fillNewsTemplateWIthCardObject(article[i]);
+      for (var i = 0; i < articles.length; i++) { //Заполняем шаблон HTML всеми новостями, которые у нас есть
+        html += fillNewsTemplateWIthCardObject(articles[i]); //Добавляем в HTML 
       }
       //Возвращает массив всех элементов, относящихся к нашему классу .short-news
       let element = window.document.getElementsByClassName("short-news")[0];
       element.innerHTML = html
-
       //Как только элементы готовы, биндимся на них
       bindUserInputEvents()
     }
@@ -127,6 +108,27 @@
     window.onload = (event) => {
       init();
     };
+
+    /*  update: (article) => {
+            let recentNews = dataRepo.getAllNews().map((el) => {
+              if (el.id == article.id) {
+                return article
+              } else {
+                return el
+              }
+            })
+            dataRepo.setItem('short-news')
+          }, */
+
+ //эта функция заменяет выбранный атрибут новости на новый, который мы захотим. Обновляет одну новость, потому что находит элементы по id.
+    //p.s. Дополнение от Евгения - “создается функция в которую помещается отфильтрованный массив всех наших новостей по айди который ты передал в функцию когда ее вызывал, далее у этой новости изменяется атрибут выбранный тобой (тайтл к примеру) и заменяется на то значения которое ты передал и апдейтится ЛС”
+    /* function updateNewsAttributeById(id, title, description) {
+      let findedNews = dataRepo.getAllNews().filter((el) => {
+        return el.title == title
+      })[0]
+      findedCard[attribute] = value
+      dataRepo.update(findedNews)
+    } */
   </script>
 </head>
 
