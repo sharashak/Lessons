@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="style.css" rel="stylesheet">
+    <script src="script.js"></script>
+    <title>
+        TODO APP
+    </title>
+</head>
+
+<body>
+    <div class="panel card">
+        <button id="openTodoForm">Добавить задачу</button>
+    </div>
+    <div class="edit-form card" style="display:none;">
+        <a onclick="toggleForm()" class="card__close" href="javascript:void(0)">&times;</a>
+        <input type="hidden" name="id" />
+        <input type="text" name="title" placeholder="Введите название" />
+        <textarea type="text" name="description" rows="6" placeholder="Введите описание" /></textarea>
+        <button onclick="saveCard()">Сохранить</button>
+    </div>
+    <div class="todo-list">
+        <h1 id="header-title">Список дел</h1>
+        <ul class="todo-list-items">
+        </ul>
+    </div>
+</body>
+
+</html>
