@@ -1,6 +1,5 @@
 let dataRepositoryLocalStorage = {
     storageKey: "todo-list",
-
     getItem: () => {
         let string = localStorage.getItem(dataRepositoryLocalStorage.storageKey)
         return JSON.parse(string)
@@ -58,11 +57,17 @@ var todoItemTemplate =
     '</div>' +
     '</li>';
 
-//Функция инициализации
-function init() {
-    console.log("The initialization was successful.")
-    loadSampleData()
-    render()
+function createCardBy(id, title, description) {
+    if (id == "") {
+        id = dataRepositoryLocalStorage.getAllCards().length + 1
+    }
+    let card = {
+        id: id,
+        title: title,
+        description: description,
+        isChecked: false
+    }
+    return card
 }
 
 function deleteCard(cardId) {
@@ -79,12 +84,10 @@ function editCard(cardId) {
     let idElement = document.querySelector("[name='id']")
     let titleElement = document.querySelector("[name='title']")
     let descriptionElement = document.querySelector("[name='description']")
-
     idElement.value = cardId
     let cardForEdit = dataRepositoryLocalStorage.getAllCards().filter(card => cardId == card.id)[0]
     titleElement.value = cardForEdit.title
     descriptionElement.value = cardForEdit.description
-
     if (!isFormOpened) {
         toggleForm()
     }
@@ -94,19 +97,15 @@ function saveCard() {
     let idElement = document.querySelector("[name='id']")
     let titleElement = document.querySelector("[name='title']")
     let descriptionElement = document.querySelector("[name='description']")
-
     let createdCart = createCardBy(idElement.value, titleElement.value, descriptionElement.value)
-
     if (!validateCard(createdCart)) {
         return
     }
-
     if (idElement.value == "") {
         dataRepositoryLocalStorage.create(createdCart)
     } else {
         dataRepositoryLocalStorage.update(createdCart)
     }
-
     idElement.value = ""
     titleElement.value = ""
     descriptionElement.value = ""
@@ -114,6 +113,13 @@ function saveCard() {
     render()
 }
 
+function updateCardAttributeById(id, attribute, value) {
+    let findedCard = dataRepositoryLocalStorage.getAllCards().filter((el) => {
+        return el.id == id
+    })[0]
+    findedCard[attribute] = value
+    dataRepositoryLocalStorage.update(findedCard)
+}
 
 function validateCard(card) {
     let errors = 0
@@ -137,33 +143,8 @@ function validateCard(card) {
     return result
 }
 
-function createCardBy(id, title, description) {
-    if (id == "") {
-        id = dataRepositoryLocalStorage.getAllCards().length + 1
-    }
-
-    let card = {
-        id: id,
-        title: title,
-        description: description,
-        isChecked: false
-    }
-
-    return card
-
-}
-
-function updateCardAttributeById(id, attribute, value) {
-    let findedCard = dataRepositoryLocalStorage.getAllCards().filter((el) => {
-        return el.id == id
-    })[0]
-    findedCard[attribute] = value
-    dataRepositoryLocalStorage.update(findedCard)
-}
-
-var isFormOpened = false
-
 function toggleForm() {
+    var isFormOpened = false
     if (isFormOpened) {
         document.getElementsByClassName("edit-form")[0].style.display = "none"
         document.getElementsByClassName("panel")[0].style.display = "flex"
@@ -178,6 +159,17 @@ function toggleForm() {
 function listenFormEvents() {
     let openFormButton = document.querySelector("#openTodoForm")
     openFormButton.addEventListener('click', toggleForm)
+}
+
+function bindUserInputEvents() {
+    let elements = document.querySelectorAll('input')
+    console.log(elements)
+    elements.forEach((el) => {
+        el.addEventListener('change', (event) => {
+            updateCardAttributeById(el.getAttribute("data-id"), "isChecked", el.checked)
+        })
+    })
+    listenFormEvents()
 }
 
 function loadSampleData() {
@@ -207,31 +199,8 @@ function loadSampleData() {
     ])
 }
 
-//Отображаем карточки
-function render() {
-    var html = ""
-    let cards = dataRepositoryLocalStorage.getAllCards()
-    console.log(cards)
-    for (var i = 0; i < cards.length; i++) {
-        html += fillCardTemplateWithCardObject(cards[i])
-    }
-
-    let element = window.document.getElementsByClassName("todo-list-items")[0]
-    element.innerHTML = html
-
-    //Как только элементы готовы, биндимся на них
-    bindUserInputEvents()
-}
-
-function bindUserInputEvents() {
-    let elements = document.querySelectorAll('input')
-    console.log(elements)
-    elements.forEach((el) => {
-        el.addEventListener('change', (event) => {
-            updateCardAttributeById(el.getAttribute("data-id"), "isChecked", el.checked)
-        })
-    })
-    listenFormEvents()
+function toggle(card) {
+    card.isChecked = !card.isChecked
 }
 
 //Заполняем шаблон и возвращаем его
@@ -243,12 +212,27 @@ function fillCardTemplateWithCardObject(card) {
         .replaceAll('{description}', card.description)
 }
 
-//Изменяем состояние карточки на противоположное 
-function toggle(card) {
-    card.isChecked = !card.isChecked
+//Отображаем карточки
+function render() {
+    var html = ""
+    let cards = dataRepositoryLocalStorage.getAllCards()
+    console.log(cards)
+    for (var i = 0; i < cards.length; i++) {
+        html += fillCardTemplateWithCardObject(cards[i])
+    }
+    let element = window.document.getElementsByClassName("todo-list-items")[0]
+    element.innerHTML = html
+    bindUserInputEvents() //Как только элементы готовы, биндимся на них
+}
+
+//Функция инициализации
+function init() {
+    console.log("The initialization was successful.")
+    loadSampleData()
+    render()
 }
 
 //Страница загружена, вызываем то что нам надо
-window.onload = (event) => {
+window.onload = () => {
     init()
 }
