@@ -10,9 +10,9 @@ class TodoListItemComponent extends Component {
                 '{description}' +
             '</p>' + 
             '<div>' +
-                '<a href="javascript:void(0)" onclick="deleteCard({itemId})">Удалить</a>&nbsp;' + 
-                '<a href="javascript:void(0)" onclick="editCard({itemId})">Изменить</a>' +
+                '<a href="javascript:void(0)" onclick="deleteCard({item-id})">Удалить</a>&nbsp' + 
+                '<a href="javascript:void(0)" onclick="editCard({item-id})">Изменить</a>' +
             '</div>' +
-        '</li>';    
+            '</li>';    
     }
 }

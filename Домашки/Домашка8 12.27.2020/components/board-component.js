@@ -8,12 +8,10 @@ class BoardComponent extends Component {
                 this.renderColumns() + 
             "</div>" +
         "</div>"
-        
     }
 
     renderColumns() {
         return this.data().items.reduce((acc, el) => {
-            console.log(el)
             let todoList = new TodoListComponent(el)
             return acc + todoList.render()
         }, "")

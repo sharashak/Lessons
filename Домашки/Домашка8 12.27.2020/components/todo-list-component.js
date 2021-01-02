@@ -1,13 +1,11 @@
 class TodoListComponent extends Component {
-    
     template() {
          return "<div class='todo-list'>" +
-            "<h1>{title}</h1>" +
-            "<ul style='display:flex; flex-flow: column;'>" + 
-            this.renderItems() + 
-            "</ul>" +
-         "</div>" 
-         
+        "<h1>{title}</h1>" +
+        "<ul style='display:flex; flex-flow: column;'>" + 
+        this.renderItems() + 
+        "</ul>" +
+        "</div>"     
     }
 
     renderItems() {

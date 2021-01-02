@@ -9,12 +9,10 @@ class Component {
     }
 
     _fillDataToTemplate() {
-        var template = this.template()
-
+        let template = this.template()
         for (const [key, value] of Object.entries(this.data())) {
             template = template.replaceAll(`{${key}}`, value)
         }
-
         return template
     }
 
