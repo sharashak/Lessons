@@ -1,5 +1,5 @@
-class ManageComponent {
-    constructor(action) {
+class ManageComponent { //Создание класса ManageComponent
+    constructor(action) { //Создание конструктора с ветвлением внутри в зависимости от выбранной кнопки из верхнего листинга.
         if(action === 'My Homework') {
             new App('#app', homeWork)
             } else if (action === 'My Work') {
