@@ -1,13 +1,20 @@
 <template>
     <div>
-      <h3>
+      <submit 
+        @addItem="addItem"
+        @itemEdited="itemEdited"
+        :todoForEdit="todoForEdit"
+        :itemEdited="itemEdited"
+      >
+      </submit>
+      <h3>    
         <todo-list-item
             v-for="(todo, index) in todos"
             :key="todo.id"
             :todo="todo"
             :index="index"
-            @removeItem="removeItem"
-            @addItem="addItem"
+            @removeItem="removeItem(index)"
+            @editItem="editItem(todo)"
         />
       </h3>
     </div>
@@ -17,14 +24,17 @@
 <script>
 
 import TodoListItem from "@/components/TodoListItem"
+import Submit from "@/components/Submit"
 
 export default {
     props: ["text"],
     components: {
-        TodoListItem
+        TodoListItem,
+        Submit
     },
     data(){
         return {
+            todoForEdit: null,
             todos: [
                 {
                     id: 0,
@@ -55,12 +65,39 @@ export default {
         }
     },
     methods: {
-        removeItem(id) {
-            this.todos.splice(id, 1)
+        itemEdited(todo) {
+        //Example 1
+        //    var todosCopy = [] 
+        //    for(var i = 0; i < todos.length; i++) {
+        //        var todoElement = todos[i]
+
+        //        if(todo.id != todoElement.id) {
+        //             todosCopy[i] = todoElement    
+        //        } else {
+        //             todosCopy[i] = todo
+        //        }
+        //    } 
+           //Example 2 
+           this.todos = this.todos.map((todoElement) => {
+                if(todo.id != todoElement.id) {
+                    return todoElement    
+                } else {
+                    return todo
+                }
+            })
+        
+            this.todoForEdit = null
         },
-        addItem() {
-            console.log("Hold up")
-        }
+        editItem(todo) {
+            this.todoForEdit = todo
+        },
+        removeItem(index) {
+            this.todos.splice(index, 1)
+        },
+        addItem(todo) {
+            todo.id = this.todos.length + 1
+            this.todos.unshift(todo)
+        },
     }
 }
 </script>

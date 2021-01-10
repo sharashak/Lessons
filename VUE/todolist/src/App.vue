@@ -1,11 +1,6 @@
 <template>
   <div id="app">
     <h1 class="container">TodoList - Vue.js 2.x</h1>
-
-    <submit>
-
-    </submit>
-
     <todo-list>    
       
     </todo-list>
@@ -17,13 +12,9 @@
 <script>
 
 import TodoList from "@/components/TodoList"
-import Submit from "@/components/Submit";
-
-
 export default {
   components: {
-    TodoList,
-    Submit
+    TodoList
     },
   data() {
     return {

@@ -14,12 +14,12 @@
         <button
             type="button"
             class="btn btn-primary"
+            @click="$emit('editItem')"
         >edit</button>
 
         <div class="card subtitle">
             {{ todo.desc }}
         </div>
-
     </div>
 </template>
 
