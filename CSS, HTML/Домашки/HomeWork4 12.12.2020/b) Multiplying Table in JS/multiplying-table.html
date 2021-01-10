@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Таблица умножения на JS</title>
     <script>
+
         function init() {
             console.log(" Инициализация - успешно")
         }
@@ -14,29 +15,26 @@
             init();
         }
 
-        result = confirm(
-            'Это бортовой компьютер AL-3119\n Отключаю резонансные движки и запускаю диагностику?'
-        );
-
-        var sheetWidth = 9
-        var sheetHeight = 9
+        var sheetWidth = 9;
+        var sheetHeight = 9;
 
         var result = [];
 
         for (var w = 1; w <= sheetWidth; w++) {
             result[w] = [];
+		for (var h = 1; h <= sheetHeight; h++) {
+            	result[w][h] = w * h;
+	        }
         }
 
-        for (var h = 1; h <= sheetHeight; h++) {
-            result[w][h] = w * h;
-        }
+        
 
-        let array = []
+        let array = [];
         for (m = 1; m <= 10; m++) {
-            array[m] = []
+            array[m] = [];
             for (n = 1; n <= 10; n++) {
                 result = m * n;
-                array[m][n] = result
+                array[m][n] = result;
             }
         }
         console.table(array)
