@@ -1,9 +1,9 @@
  <template>
     
-    <div class="container">
+    <div class="container card-body">
         <form>
-          <input v-model="formTodo.title" type="text" />
-          <input v-model="formTodo.desc" type="text" />
+          <input class="" v-model="formTodo.title" type="text" /><br>
+          <input class="" v-model="formTodo.desc" type="text"  /><br>
           <button @click.prevent="submit">Submit</button>
         </form>
     </div>
@@ -45,5 +45,8 @@
     }
 </script>
 
-<style>
+<style scoped>
+    input {
+      margin-bottom: 3px;
+    }
 </style>

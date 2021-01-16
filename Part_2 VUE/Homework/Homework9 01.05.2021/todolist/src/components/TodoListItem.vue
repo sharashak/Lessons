@@ -1,6 +1,6 @@
 <template>
     <div class="container mb-2 mt-2 card-body">
-
+      <input class="checkbox" type="checkbox"/>
         <div class="card title">
             {{ todo.title }}
         </div>
@@ -24,13 +24,12 @@
 </template>
 
 <script>
+    export default {
+        props: ["todo", "index"],
+        methods: {
 
-export default {
-    props: ["todo", "index"],
-    methods: {
-        
+        }
     }
-}
 
 </script>
 
@@ -61,5 +60,11 @@ export default {
         display: flex;
         float: right;
         margin: 5px 2px;
+    }
+
+    .checkbox {
+        display: inline-flex;
+        float: left;
+        height: 36px;
     }
 </style>

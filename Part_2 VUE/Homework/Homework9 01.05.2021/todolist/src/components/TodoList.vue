@@ -38,28 +38,28 @@ export default {
             todos: [
                 {
                     id: 0,
-                    title: "Первый элемент",
-                    desc: "А как?"
+                    title: "Приготовить адовое блюдо",
+                    desc: "Пожарить борщ"
                 },
                 {
                     id: 1,
-                    title: "Второй элемент",
-                    desc: "А как какать?"
+                    title: "Отправить тачки на экспорт",
+                    desc: "Надо угнать Sentinel, Patriot, Infernus..."
                 },
                 {
                     id: 2,
-                    title: "Третий элемент",
-                    desc: "А как какать в свитере?"
+                    title: "Связать свитер",
+                    desc: "Купить крючки для вязания"
                 },
                 {
                     id: 3,
-                    title: "Четвёртый элемент",
-                    desc: "А как какать вверх тормашками?"
+                    title: "Купить WebStorm",
+                    desc: "Ага, щас!"
                 },
                 {
                     id: 4,
                     title: "Пятый элемент",
-                    desc: "А как какать вверх тормашками, чтобы не обосрать свитер?"
+                    desc: "Посмотреть фильм?"
                 }
             ]
         }
@@ -79,7 +79,7 @@ export default {
         //    } 
            //Example 2 
            this.todos = this.todos.map((todoElement) => {
-                if(todo.id != todoElement.id) {
+                if(todo.id !== todoElement.id) {
                     return todoElement    
                 } else {
                     return todo
